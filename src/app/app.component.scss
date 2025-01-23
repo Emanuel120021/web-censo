@@ -1,0 +1,36 @@
+.div-principal-inicio {
+  height: 100vh;
+  overflow: hidden !important;
+  .div-header {
+    background-color: #6bb95b;
+    height: 8%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 800;
+    color: white;
+  }
+  .div-mid {
+    width: 100%;
+    margin: 10px 0 20px 0;
+    height: 7%;
+    .botoes-acoes {
+      display: flex;
+      justify-content: space-around;
+      height: 100%;
+      .btn {
+        width: 40%;
+        height: 100%;
+        font-size: 1.6rem;
+        border-color: transparent;
+        box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        background-color: #6bb95b;
+        color: white;
+        font-weight: 500;
+      }
+    }
+  }
+}

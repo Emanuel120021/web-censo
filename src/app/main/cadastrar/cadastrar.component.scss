@@ -1,0 +1,93 @@
+.div-principal-cadastrar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .blinking-div {
+    background-color: red;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+    animation: blink 1s infinite;
+  }
+  .form-cadastrar {
+    width: 100%;
+    padding: 15px;
+    .div-top-cadastrar {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+      display: flex;
+      padding: 10px;
+    }
+    .div-mid-cadastrar {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      padding: 10px;
+    }
+    .div-bot-cadastrar {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      padding: 20px 10px 10px 10px;
+      gap: 10px;
+    }
+  }
+  .buttons-acoes {
+    width: 100%;
+    justify-content: space-around;
+    display: flex;
+    margin-top: 30px;
+    .btns {
+      width: 120px;
+      height: 50px;
+      font-size: 20px;
+      border-radius: 8px;
+    }
+  }
+}
+
+::ng-deep .div-top-cadastrar .p-floatlabel input {
+  height: 60px;
+  width: 100%;
+}
+::ng-deep .div-top-cadastrar .p-floatlabel {
+  width: 50%;
+}
+::ng-deep .div-top-cadastrar .p-datepicker {
+  width: 100%;
+}
+
+::ng-deep .div-mid-cadastrar .p-floatlabel {
+  width: 100%;
+}
+::ng-deep .div-mid-cadastrar .p-floatlabel input {
+  width: 100%;
+  height: 60px;
+}
+
+::ng-deep .div-bot-cadastrar .p-floatlabel {
+  width: 50%;
+}
+
+::ng-deep .div-bot-cadastrar p-select {
+  height: 60px;
+  width: 100%;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

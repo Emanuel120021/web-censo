@@ -1,1 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.btn-cancelar {
+  background-color: #000000 !important;
+  color: white !important;
+}
+
+.btn-salvar {
+  background-color: #6bb95b !important;
+  color: white !important;
+}
+
+.btn-deletar {
+  background-color: #c62222 !important;
+  color: white !important;
+}

@@ -1,0 +1,56 @@
+<div class="div-principal-listar">
+  <div class="legendas">
+    <span class="legendas-texto"
+      >Legenda para batismo (águas e Espírito Santo)</span
+    >
+    <div class="legendas-cores">
+      <span class="leg-um">
+        <div class="square"></div>
+        <span>Espírito Santo</span>
+      </span>
+      <span class="leg-dois">
+        <div class="square"></div>
+        <span>Em águas</span>
+      </span>
+      <span class="leg-tres">
+        <div class="square"></div>
+        <span>Nos dois</span>
+      </span>
+      <span class="leg-quatro">
+        <div class="square"></div>
+        <span>Nenhum</span>
+      </span>
+    </div>
+  </div>
+  <div class="tabela-listar-membros">
+    <p-table [value]="dataSource" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template #header>
+        <tr>
+          <th>Nome</th>
+          <th>Endereço</th>
+          <th>Aniversário</th>
+          <th>Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-membro>
+        <tr [ngClass]="getRowClass(membro.batismo)">
+          <td>{{ membro.nome }}</td>
+          <td>{{ membro.endereco }}</td>
+          <td>{{ membro.aniversario }}</td>
+          <td>
+            <button
+              style="background-color: transparent; color: black; border: none"
+              (click)="routeCadastrar(membro)"
+            >
+              <i
+                class="icon-editar"
+                class="pi pi-pen-to-square"
+                style="font-size: 1.5rem"
+              ></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

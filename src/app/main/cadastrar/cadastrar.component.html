@@ -1,0 +1,65 @@
+<p-confirmPopup></p-confirmPopup>
+<div class="div-principal-cadastrar">
+  <div *ngIf="emEdicao" class="blinking-div">Edição</div>
+  <form [formGroup]="form" class="form-cadastrar">
+    <div class="div-top-cadastrar">
+      <p-floatlabel>
+        <input pInputText id="nome" autocomplete="off" formControlName="nome" />
+        <label for="nome">Nome</label>
+      </p-floatlabel>
+      <p-floatlabel>
+        <p-datepicker
+          readonlyInput="true"
+          inputId="aniversario"
+          dateFormat="dd/mm/yy"
+          showIcon
+          iconDisplay="input"
+          formControlName="aniversario"
+        ></p-datepicker>
+        <label for="aniversario">Data de nascimento</label>
+      </p-floatlabel>
+    </div>
+    <div class="div-mid-cadastrar">
+      <p-floatlabel class="input-endereco">
+        <input
+          pInputText
+          id="endereco"
+          autocomplete="off"
+          formControlName="endereco"
+        />
+        <label for="endereco">Endereço</label>
+      </p-floatlabel>
+    </div>
+    <div class="div-bot-cadastrar">
+      <p-floatlabel class="w-full md:w-56">
+        <p-select
+          inputId="batizadoAguas"
+          [options]="opcoesBatizado"
+          formControlName="batizadoAguas"
+          optionLabel="label"
+          optionValue="value"
+        ></p-select>
+        <label for="batizadoAguas">Batizado nas águas?</label>
+      </p-floatlabel>
+      <p-floatlabel class="w-full md:w-56">
+        <p-select
+          inputId="batizadoEspirito"
+          [options]="opcoesBatizado"
+          formControlName="batizadoEspirito"
+          optionLabel="label"
+          optionValue="value"
+        ></p-select>
+        <label for="batizadoEspirito">Batizado no espírito?</label>
+      </p-floatlabel>
+    </div>
+  </form>
+  <div class="buttons-acoes">
+    <button class="btns btn-cancelar" (click)="cancelar($event)">
+      Cancelar
+    </button>
+    <button *ngIf="emEdicao" class="btns btn-deletar" (click)="deletar($event)">
+      Deletar
+    </button>
+    <button class="btns btn-salvar">Salvar</button>
+  </div>
+</div>

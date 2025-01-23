@@ -1,0 +1,76 @@
+.div-principal-listar {
+  width: 100%;
+  height: 100%;
+  .legendas {
+    width: 100%;
+    height: 6%;
+    background-color: #d9d9d9;
+    .legendas-texto {
+      margin-left: 10px;
+      font-weight: 700;
+    }
+    .legendas-cores {
+      margin-left: 10px;
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      .leg-um,
+      .leg-dois,
+      .leg-tres,
+      .leg-quatro {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        .square {
+          background-color: red;
+          width: 15px;
+          height: 15px;
+        }
+      }
+      .leg-um {
+        .square {
+          background-color: #4d70e5 !important;
+        }
+      }
+      .leg-dois {
+        .square {
+          background-color: white !important;
+        }
+      }
+      .leg-tres {
+        .square {
+          background-color: #4de557 !important;
+        }
+      }
+      .leg-quatro {
+        .square {
+          background-color: #da2e2e !important;
+        }
+      }
+    }
+  }
+  .tabela-listar-membros {
+    padding: 10px;
+    td {
+      padding: 10px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 800;
+    }
+  }
+}
+
+.ae {
+  background-color: #4de557; /* Verde claro para "AE" (Água e Espírito Santo) */
+}
+
+.n {
+  background-color: #da2e2e; /* Vermelho claro para "N" (Nenhum) */
+}
+
+.a {
+  background-color: white; /* Azul claro para "A" (Água) */
+}
+
+.e {
+  background-color: #4d70e5; /* Roxo claro para "E" (Espírito) */
+}
