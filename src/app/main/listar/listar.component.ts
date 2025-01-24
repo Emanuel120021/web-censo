@@ -4,11 +4,17 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { ListarService } from './listar.service';
+import { LoadingComponent } from '../../loading/loading.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoadingInterceptor } from '../../interceptors/loading.interceptor';
 
 @Component({
   selector: 'app-listar',
   standalone: true,
-  imports: [TableModule, CommonModule],
+  imports: [TableModule, CommonModule, LoadingComponent],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+  ],
   templateUrl: './listar.component.html',
   styleUrl: './listar.component.scss',
 })

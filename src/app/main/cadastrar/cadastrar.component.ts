@@ -12,6 +12,8 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { CadastrarService } from './cadastrar.service';
 import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoadingInterceptor } from '../../interceptors/loading.interceptor';
 
 @Component({
   selector: 'app-cadastrar',
@@ -27,7 +29,11 @@ import { Toast } from 'primeng/toast';
     ConfirmPopupModule,
     Toast,
   ],
-  providers: [ConfirmationService, MessageService],
+  providers: [
+    ConfirmationService,
+    MessageService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+  ],
   templateUrl: './cadastrar.component.html',
   styleUrls: ['./cadastrar.component.scss'],
 })
