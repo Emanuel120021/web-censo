@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/censo',
+  apiUrl: 'https://api-censo.onrender.com/censo',
 };
