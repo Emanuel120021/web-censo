@@ -113,11 +113,13 @@ export class CadastrarComponent {
         .subscribe((value: any) => {
           if (value.message) {
             this.router.navigate(['/listar']);
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: 'Abençoado(a) atualizado(a) com sucesso! 🎉',
-            });
+            setTimeout(() => {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Abençoado(a) atualizado(a) com sucesso! 🎉',
+              });
+            }, 1000);
           } else {
             this.messageService.add({
               severity: 'error',
@@ -132,11 +134,14 @@ export class CadastrarComponent {
       .cadastrar(this.form.getRawValue())
       .subscribe((value: any) => {
         if (value.message) {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Abençoado(a) cadastrado(a) com sucesso! 🎉',
-          });
+          this.router.navigate(['/listar']);
+          setTimeout(() => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Abençoado(a) cadastrado(a) com sucesso! 🎉',
+            });
+          }, 1000);
         } else {
           this.messageService.add({
             severity: 'error',
@@ -183,11 +188,13 @@ export class CadastrarComponent {
           .subscribe((value: any) => {
             if (value.message) {
               this.router.navigate(['/listar']);
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Abençoado(a) deletado(a) com sucesso! 🎉',
-              });
+              setTimeout(() => {
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Success',
+                  detail: 'Abençoado(a) deletado(a) com sucesso! 🎉',
+                });
+              }, 1000);
             } else {
               this.messageService.add({
                 severity: 'error',
