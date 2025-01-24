@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,9 +9,9 @@ import { HttpClient } from '@angular/common/http';
 export class ListarService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
   listar() {
-    return this.http.get(`${this.apiUrl}`);
+    return this.httpClient.get(`${this.apiUrl}`);
   }
 }

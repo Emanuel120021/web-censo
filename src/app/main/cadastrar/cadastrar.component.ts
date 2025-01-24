@@ -9,6 +9,9 @@ import { SelectModule } from 'primeng/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { CadastrarService } from './cadastrar.service';
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
 
 @Component({
   selector: 'app-cadastrar',
@@ -22,8 +25,9 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
     CommonModule,
     SelectModule,
     ConfirmPopupModule,
+    Toast,
   ],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService, MessageService],
   templateUrl: './cadastrar.component.html',
   styleUrls: ['./cadastrar.component.scss'],
 })
@@ -40,10 +44,11 @@ export class CadastrarComponent {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private cadastrarService: CadastrarService,
+    private messageService: MessageService
   ) {
     this.form = this.fb.group({
-      id: [''],
       nome: [''],
       aniversario: [null],
       endereco: [''],
@@ -54,11 +59,13 @@ export class CadastrarComponent {
     this.route.queryParams.subscribe((membro: any) => {
       if (membro.nome) {
         this.emEdicao = true;
+
         this.form.patchValue(membro);
+
         const [day, month, year] = membro.aniversario.split('/');
         const date = new Date(+year, +month - 1, +day);
         this.form.get('aniversario')?.setValue(date);
-
+        this.form.addControl('id', this.fb.control(+membro.id));
         switch (membro.batismo) {
           case 'AE':
             this.form.get('batizadoAguas')?.setValue('S');
@@ -81,6 +88,74 @@ export class CadastrarComponent {
     });
   }
 
+  cadastrarAtualizar(atualizar?: boolean) {
+    this.form
+      .get('aniversario')
+      ?.setValue(
+        this.form.get('aniversario')?.value.toLocaleDateString('pt-BR')
+      );
+
+    console.log(this.form.getRawValue());
+
+    this.form.addControl('batismo', this.fb.control(this.getBatismoStatus()));
+    this.form.removeControl('batizadoAguas');
+    this.form.removeControl('batizadoEspirito');
+
+    if (atualizar) {
+      this.cadastrarService
+        .atualizar(this.form.getRawValue(), this.form.get('id')?.value)
+        .subscribe((value: any) => {
+          if (value.message) {
+            this.router.navigate(['/listar']);
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Abençoado(a) atualizado(a) com sucesso! 🎉',
+            });
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Algo não ocorreu como esperado 😞',
+            });
+          }
+        });
+      return;
+    }
+    this.cadastrarService
+      .cadastrar(this.form.getRawValue())
+      .subscribe((value: any) => {
+        if (value.message) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Abençoado(a) cadastrado(a) com sucesso! 🎉',
+          });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Algo não ocorreu como esperado 😞',
+          });
+        }
+      });
+  }
+
+  getBatismoStatus(): string {
+    const batizadoAguas = this.form.get('batizadoAguas')?.value;
+    const batizadoEspirito = this.form.get('batizadoEspirito')?.value;
+
+    if (batizadoAguas === 'S' && batizadoEspirito === 'S') {
+      return 'AE';
+    } else if (batizadoAguas === 'S' && batizadoEspirito === 'N') {
+      return 'A';
+    } else if (batizadoAguas === 'N' && batizadoEspirito === 'S') {
+      return 'E';
+    } else {
+      return 'N';
+    }
+  }
+
   deletar(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
@@ -96,7 +171,26 @@ export class CadastrarComponent {
         label: 'Sim',
         severity: 'danger',
       },
-      accept: () => {},
+      accept: () => {
+        this.cadastrarService
+          .deletar(this.form.get('id')?.value)
+          .subscribe((value: any) => {
+            if (value.message) {
+              this.router.navigate(['/listar']);
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Abençoado(a) deletado(a) com sucesso! 🎉',
+              });
+            } else {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Algo não ocorreu como esperado 😞',
+              });
+            }
+          });
+      },
       reject: () => {},
     });
   }

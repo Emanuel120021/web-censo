@@ -74,3 +74,16 @@
 .e {
   background-color: #4d70e5; /* Roxo claro para "E" (Espírito) */
 }
+
+.tabela-listar-membros {
+  max-height: 73vh; /* Define a altura máxima para o scroll */
+  overflow: auto; /* Habilita o scroll quando necessário */
+  border: 1px solid #ccc; /* (Opcional) Adiciona borda para destacar o contêiner */
+  margin-top: 1rem; /* Espaço entre a legenda e a tabela */
+}
+
+/* Ajusta o estilo da tabela, se necessário */
+.tabela-listar-membros p-table {
+  width: 100%; /* Faz a tabela ocupar toda a largura do contêiner */
+  border-collapse: collapse;
+}
