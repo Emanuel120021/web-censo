@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { ListarService } from './listar.service';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-listar',
@@ -17,45 +18,29 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 })
 export class ListarComponent implements OnInit {
   dataSource: any;
+
+  mensagem: string | null = null;
+  private subscription: Subscription | undefined;
   constructor(
     private router: Router,
     private listarService: ListarService,
-    private spinnerService: NgxSpinnerService,
-    private loading: LoadingService
+    private loadingService: LoadingService
   ) {}
-  // Legenda para o dataSource:
-  // AE = AGUA E ESPIRITO || N = NENHUM || A = AGUA || E = ESPIRITO
-  // dataSource = [
-  //   {
-  //     nome: 'Emanuel Lázaro Porpino Campos',
-  //     endereco: 'Rua Antônio Carlos Sobrinho, 200, Liberdade',
-  //     aniversario: '22/01/2001',
-  //     batismo: 'AE',
-  //   },
-  //   {
-  //     nome: 'Emanuel Lázaro Porpino Campos',
-  //     endereco: 'Rua Antônio Carlos Sobrinho, 200, Liberdade',
-  //     aniversario: '22/01/2001',
-  //     batismo: 'N',
-  //   },
-  //   {
-  //     nome: 'Emanuel Lázaro Porpino Campos',
-  //     endereco: 'Rua Antônio Carlos Sobrinho, 200, Liberdade',
-  //     aniversario: '22/01/2001',
-  //     batismo: 'A',
-  //   },
-  //   {
-  //     nome: 'Emanuel Lázaro Porpino Campos',
-  //     endereco: 'Rua Antônio Carlos Sobrinho, 200, Liberdade',
-  //     aniversario: '22/01/2001',
-  //     batismo: 'E',
-  //   },
-  // ];
 
   ngOnInit() {
     this.listarService.listar().subscribe((res) => {
       this.dataSource = res;
     });
+    this.subscription = this.loadingService.mensagem$.subscribe((mensagem) => {
+      console.log('Mensagem recebida no componente:', mensagem);
+      this.mensagem = mensagem; // Atualiza a mensagem exibida
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   getRowClass(batismo: string): string {
