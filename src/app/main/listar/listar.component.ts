@@ -1,26 +1,28 @@
+import { LoadingService } from './../../loading/loading.service';
 import { state } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { ListarService } from './listar.service';
-import { LoadingComponent } from '../../loading/loading.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoadingInterceptor } from '../../interceptors/loading.interceptor';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-listar',
   standalone: true,
-  imports: [TableModule, CommonModule, LoadingComponent],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-  ],
+  imports: [TableModule, CommonModule, NgxSpinnerModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './listar.component.html',
   styleUrl: './listar.component.scss',
 })
 export class ListarComponent implements OnInit {
   dataSource: any;
-  constructor(private router: Router, private listarService: ListarService) {}
+  constructor(
+    private router: Router,
+    private listarService: ListarService,
+    private spinnerService: NgxSpinnerService,
+    private loading: LoadingService
+  ) {}
   // Legenda para o dataSource:
   // AE = AGUA E ESPIRITO || N = NENHUM || A = AGUA || E = ESPIRITO
   // dataSource = [
