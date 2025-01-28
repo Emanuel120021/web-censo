@@ -79,7 +79,9 @@ export class LoadingService {
     this.requestCount--;
     if (this.requestCount <= 0) {
       this.requestCount = 0;
-      this.spinnerService.hide();
+      setTimeout(() => {
+        this.spinnerService.hide();
+      }, 2500);
     }
   }
 }
